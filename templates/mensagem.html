@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/mensagem.css">
+    <title>crabiz online</title>
+</head>
+
+<body>
+    <div class="tudo">
+      <div class="cima">
+        <h3>QUAL O REMETENTE?</h3>
+        <br>
+        <div class="select">
+            <select name="usuario" id="usuario" onchange="mostrarMensagens()">
+                <option value="">NOME</option>
+            </select>
+        </div>
+      </div>
+    </div>
+    <div id="mensagem-view">
+      <p>Mensagem:</p>
+    </div>
+    <div class="input">
+      Digite aqui: 
+      <input type="text" name="mensagem">
+      <button onclick="enviarMensagem()" type="submit">enviar</button>
+    </div>
+</body>
+<script type="text/javascript">
+
+  function mostrarUsuarios(){
+      $.ajax({
+          url: "/get/usuarios",
+          type: "GET",
+          success: function(contatos){
+              for(let i=0; i<contatos.length; i++){
+                let texto_html = '<option value="'+contatos[i]['telefone']+'">'+contatos[i]['nome']+'</option>'
+                $('#usuario').append(texto_html)
+              }
+          
+          }
+      })
+  }
+
+  $(document).ready(mostrarUsuarios());
+</script>
+
+<script type="text/javascript">
+  function mostrarMensagens(){
+    $("#mensagem-view").empty()
+    $.ajax({
+      url:"/get/mensagens/" + $("#usuario").val(),
+      type: "GET",
+      success: function(mensagens){
+        for(let i=0;i < mensagens.length;i++){
+            tag = "<p>" + mensagens[i]["mensagem"] + "</p>"
+            $("#mensagem-view").append(tag)
+          }
+        }
+      })
+
+    }
+  function enviarMensagem() {
+    // Recupera o conteúdo da mensagem digitada pelo usuário
+    var mensagem = $("input[name='mensagem']").val();
+    // Recupera o remetente selecionado pelo usuário
+    var remetente = $("#usuario").val();
+
+    // Verifica se a mensagem não está vazia
+    if (mensagem.trim() !== "" && remetente !== "") {
+      // Dados a serem enviados para o backend
+      var dados = {
+        remetente: remetente,
+        mensagem: mensagem
+      };
+
+      // Envie os dados da mensagem para o backend via AJAX
+      $.ajax({
+        url: "/enviar_mensagem",
+        type: "POST",
+        data: JSON.stringify(dados),
+        contentType: "application/json",
+        success: function() {
+          // A mensagem foi enviada com sucesso, faça algo se necessário
+          $("#mensagem-view").append("CADASTRO REALIZADO COM SUCESSO!")
+          // Limpa o campo de entrada de mensagem
+          $("input[name='mensagem']").val("");
+          // Atualiza a visualização das mensagens
+          mostrarMensagens();
+        },
+        error: function() {
+          // Ocorreu um erro ao enviar a mensagem
+          $("#mensagem-view").append("ERRO AO CADASTRAR!")
+        }
+      });
+    } else {
+      // Caso a mensagem esteja vazia, exiba uma mensagem de erro
+      console.error("Por favor, insira uma mensagem e selecione um remetente.");
+    }
+  }
+</script>
+</html>

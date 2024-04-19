@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crabiz online</title>
+</head>
+<body>
+    <select id="chat-history">
+        <option value=""></option>
+    </select>
+    <script>
+        function mostrarMensagens(tel_destinatario){
+            $.ajax({
+                url: "/get/mensagens" + tel_destinatario,
+                type: "GET",
+                success: function(mensagens){
+                    for(let i=0; i<mensagens.length; i++){
+                        $("#chat-history").append("<option>" + mensagens[i].remetente + "</span>: " + mensagens[i].texto + "</option>");
+                    }
+                }
+            })
+        }
+        
+        $(document).ready(mostrarMensagens())
+    </script>
+</body>
+</html>

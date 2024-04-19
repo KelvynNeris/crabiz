@@ -1,0 +1,110 @@
+body {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: Arial, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0);
+  }
+  
+  h3 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+.tudo{
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(0, 0, 0);
+    height: 40%;
+}
+
+.cima{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background-color: orange;
+  width: 500px;
+  height: 150px;
+}
+
+.input{
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  width: 700px;
+}
+
+input{
+
+  margin-left: 25px;
+  margin-right: 25px;
+  width: 350px;
+  height: 20px;
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+}
+
+.select{
+
+    width: 200px;
+    height: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: green;
+}
+
+#mensagem-view{
+
+  flex-direction: column;
+  overflow-y: auto;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 40%;
+  color: white;
+  background-color: green;
+}
+
+select{
+
+  border-style: none;
+}
+
+button{
+
+  transition: 0.6s;
+  border-radius: 25px;
+  border-style: none;
+  background-color: orange;
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+}
+
+button:hover{
+
+  transform: scale(1.1);
+  background-color: green;
+}
