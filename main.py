@@ -18,7 +18,7 @@ def index():
 
         usuario = Usuario()
         if usuario.cadastrar(telefone, nome ,senha):
-            return "Usuario logado"
+            return redirect('/logar')
         else:
             return "Falha ao cadastrar"
         
